@@ -1,0 +1,22 @@
+[Unit]
+Description=TRHACKNON WEB STRESS LAB
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=trhacknon
+WorkingDirectory=/opt/trhacknon-stresslab
+EnvironmentFile=/opt/trhacknon-stresslab/.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/trhacknon-stresslab/.venv/bin/streamlit run app.py --server.address 127.0.0.1 --server.port 8501 --server.headless true --server.enableCORS true --server.enableXsrfProtection true
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/trhacknon-stresslab/data
+
+[Install]
+WantedBy=multi-user.target
